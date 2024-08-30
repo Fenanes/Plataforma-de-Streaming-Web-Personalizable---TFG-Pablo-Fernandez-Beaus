@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Plataforma de Streaming</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Pantalla de bienvenida -->
+    <div id="welcomeScreen" class="welcome-screen">
+        Bienvenid@, a continuación personalizaremos su plataforma de streaming...
+    </div>
+    <div id="formContainer" class="customization-form hidden">
+        <!-- Paso 1: Cargar el logo -->
+        <div id="step1" class="step">
+            <p>Introduzca un logo en formato png:</p>
+            <!-- Input para cargar el logo -->
+            <input type="file" id="logoUploader" accept="image/png" onchange="previewLogo(event)">
+            <!-- Vista previa del logo cargado -->
+            <img id="logoPreview" src="" alt="Vista previa del logo" style="max-width: 100px; display: none;">
+            <div class="button-container">
+                <!-- Botón para ir al siguiente paso -->
+                <button onclick="changeStep(2)" style="margin-left: auto;">Siguiente</button>
+            </div>
+        </div>
+        <!-- Paso 2: Seleccionar color primario -->
+        <div id="step2" class="step hidden">
+            <p>Seleccione un color primario:</p>
+            <!-- Input para seleccionar el color -->
+            <input type="color" id="primaryColor">
+            <div class="button-container">
+                <!-- Botón para ir al paso anterior -->
+                <button onclick="changeStep(1)">Anterior</button>
+                <!-- Botón para ir al siguiente paso -->
+                <button onclick="changeStep(3)">Siguiente</button>
+            </div>
+        </div>
+        <!-- Paso 3: Seleccionar color secundario -->
+        <div id="step3" class="step hidden">
+            <p>Seleccione un color secundario:</p>
+            <!-- Input para seleccionar el color -->
+            <input type="color" id="secondaryColor">
+            <div class="button-container">
+                <!-- Botón para ir al paso anterior -->
+                <button onclick="changeStep(2)">Anterior</button>
+                <!-- Botón para ir al siguiente paso -->
+                <button onclick="changeStep(4)">Siguiente</button>
+            </div>
+        </div>
+        <!-- Paso 4: Seleccionar color terciario -->
+        <div id="step4" class="step hidden">
+            <p>Seleccione un color terciario:</p>
+            <!-- Input para seleccionar el color -->
+            <input type="color" id="tertiaryColor">
+            <div class="button-container">
+                <!-- Botón para ir al paso anterior -->
+                <button onclick="changeStep(3)">Anterior</button>
+                <!-- Botón para ir al siguiente paso -->
+                <button onclick="changeStep(5)">Siguiente</button>
+            </div>
+        </div>
+        <!-- Paso 5: Escribir un título y subtítulo -->
+        <div id="step5" class="step hidden">
+            <p>Escriba un título:</p>
+            <!-- Input para escribir el título -->
+            <input type="text" id="title" maxlength="20">
+            <p>Escriba un subtítulo:</p>
+            <!-- Input para escribir el subtítulo -->
+            <input type="text" id="subtitle" maxlength="35">
+            <div class="button-container">
+                <!-- Botón para ir al paso anterior -->
+                <button onclick="changeStep(4)">Anterior</button>
+                <!-- Botón para ir al siguiente paso -->
+                <button onclick="changeStep(6)">Siguiente</button>
+            </div>
+        </div>
+        <!-- Paso 6: Seleccionar fuente -->
+        <div id="step6" class="step hidden">
+            <p>Seleccione una fuente para la web:</p>
+            <!-- Selector de fuentes -->
+            <select id="fontSelector">
+                <!-- Opciones de fuentes -->
+                <option value="Arial" style="font-family: Arial;">Arial</option>
+                <option value="Verdana" style="font-family: Verdana;">Verdana</option>
+                <option value="Helvetica" style="font-family: Helvetica;">Helvetica</option>
+                <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman</option>
+                <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                <option value="Georgia" style="font-family: Georgia;">Georgia</option>
+                <option value="Palatino Linotype" style="font-family: 'Palatino Linotype';">Palatino Linotype</option>
+                <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
+                <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
+                <option value="Impact" style="font-family: Impact;">Impact</option>
+                <option value="Lucida Sans Unicode" style="font-family: 'Lucida Sans Unicode';">Lucida Sans Unicode</option>
+                <option value="Geneva" style="font-family: Geneva;">Geneva</option>
+                <option value="MS Sans Serif" style="font-family: 'MS Sans Serif';">MS Sans Serif</option>
+                <option value="MS Serif" style="font-family: 'MS Serif';">MS Serif</option>
+                <option value="Book Antiqua" style="font-family: 'Book Antiqua';">Book Antiqua</option>
+                <option value="Palatino" style="font-family: Palatino;">Palatino</option>
+                <option value="Century Gothic" style="font-family: 'Century Gothic';">Century Gothic</option>
+                <option value="Arial Black" style="font-family: 'Arial Black';">Arial Black</option>
+                <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS</option>
+                <option value="Candara" style="font-family: Candara;">Candara</option>
+                <option value="Garamond" style="font-family: Garamond;">Garamond</option>
+            </select>
+            <!-- Checkbox para activar letra en cursiva -->
+            <label>
+                <input type="checkbox" id="italicCheckbox"> Activar letra en cursiva
+            </label>
+            <div class="button-container">
+                <!-- Botón para ir al paso anterior -->
+                <button onclick="changeStep(5)">Anterior</button>
+                <!-- Botón para ir al siguiente paso -->
+                <button onclick="changeStep(7)">Siguiente</button>
+            </div>
+        </div>
+        <!-- Paso 7: Seleccionar color de los botones -->
+        <div id="step7" class="step hidden">
+            <p>Seleccione el color de los botones:</p>
+            <!-- Input para seleccionar el color de los botones -->
+            <input type="color" id="buttonColor">
+            <div class="button-container">
+                <!-- Botón para ir al paso anterior -->
+                <button onclick="changeStep(6)">Anterior</button>
+                <!-- Botón para ir al siguiente paso -->
+                <button onclick="changeStep(8)">Siguiente</button>
+            </div>
+        </div>
+        <!-- Paso 8: Seleccionar color de la fuente -->
+        <div id="step8" class="step hidden">
+            <p>Seleccione el color de la fuente:</p>
+            <!-- Input para seleccionar el color de la fuente -->
+            <input type="color" id="fontColor">
+            <div class="button-container">
+                <!-- Botón para ir al paso anterior -->
+                <button onclick="changeStep(7)">Anterior</button>
+                <!-- Botón para ir al siguiente paso -->
+                <button onclick="changeStep(9)">Siguiente</button>
+            </div>
+        </div>
+        <!-- Paso 9: Seleccionar calidad máxima de codificación -->
+        <div id="step9" class="step hidden">
+            <p>Seleccione la calidad máxima de codificación:</p>
+            <p  style="font-size: 10px;">(Tenga en cuenta que, a mayor calidad, mayor será el tiempo de procesado)</p>
+            <!-- Selector de calidad -->
+            <select id="qualitySelector">
+                <option value="720p">720p</option>
+                <option value="1080p">1080p</option>
+                <option value="2160p">2160p</option>
+            </select>
+            <div class="button-container">
+                <!-- Botón para ir al paso anterior -->
+                <button onclick="changeStep(8)">Anterior</button>
+                <!-- Botón para guardar ajustes y comenzar -->
+                <button id="startButton" onclick="saveSettings()">Comenzar</button>
+            </div>
+        </div>
+    </div>
+    <!-- Enlace al archivo JavaScript para manejar la interacción -->
+    <script src="script.js"></script>
+</body>
+</html>

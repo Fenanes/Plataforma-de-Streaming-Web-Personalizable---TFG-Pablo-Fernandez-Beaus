@@ -1,0 +1,291 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--secondary-color, #f4f4f4);
+    font-family: var(--font-family, Arial), sans-serif;
+    color: var(--font-color, #000);
+}
+
+header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--primary-color, #00BFFF);
+    position: relative;
+    flex-wrap: wrap; /* Allow wrapping of content */
+}
+
+header img {
+    max-width: 100px;
+    margin: 10px 20px 10px 30px; /* Adjust margin to move the logo slightly right */
+}
+
+header div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-left: 20px;
+    flex-grow: 1;
+}
+
+header div p {
+    margin: 5px 0; /* Reduce vertical spacing between title and subtitle */
+}
+
+header button {
+    margin: 10px;
+    padding: 10px 20px;
+}
+
+#modal, #videoPlayerModal, #customizationModal, #deleteConfirmationModal, #deleteVideosConfirmationModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none; /* Initially hidden */
+}
+
+#uploadForm, #videoPlayerContainer, #customizationForm, #deleteConfirmationForm, #deleteVideosConfirmationForm {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    max-width: 90%;
+    width: 400px;
+    text-align: center;
+    position: relative;
+    overflow-y: auto; /* Allow vertical scroll if content overflows */
+    max-height: 90%; /* Limit max height to 90% of the viewport */
+}
+
+#deleteConfirmationModal, #deleteVideosConfirmationModal {
+    z-index: 9999; /* Ensure the delete confirmation modal is on top */
+}
+
+input, textarea, button, select {
+    display: block;
+    margin: 10px auto; /* Center elements */
+    padding: 8px;
+    width: 300px;
+}
+
+input[type="color"] {
+    width: 50px;  /* Width of the color picker */
+    height: 50px; /* Height of the color picker */
+    padding: 0;   /* Remove padding to make it square */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+}
+
+#logoPreview {
+    display: block;
+    margin: 0 auto 10px; /* Center the logo preview and add space below */
+}
+
+#videoPlayerContainer {
+    display: flex;
+    flex-direction: row; /* Horizontal alignment */
+    width: 80%;
+    height: 80%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+#videoPlayerWrapper {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px; /* Add some space between the video and the details */
+}
+
+#videoPlayer {
+    width: 100%;
+    height: auto;
+    max-height: 100%; /* Limit the height of the video player */
+}
+
+#videoDetailsWrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    align-items: center; /* Center align items vertically */
+    overflow-y: auto; /* Allow scrolling */
+}
+
+.title {
+    text-align: center;
+    padding: 10px;
+    font-size: 24px;
+    color: var(--font-color, #000);
+    width: 100%; /* Make title take full width */
+    box-sizing: border-box; /* Include padding in width */
+    margin-bottom: 10px; /* Add margin at bottom */
+}
+
+.description {
+    padding: 10px;
+    font-size: 18px;
+    color: var(--font-color, #000);
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    flex-grow: 1; /* Make description take up available space */
+    width: 100%; /* Make description take full width */
+    box-sizing: border-box; /* Include padding in width */
+    margin-bottom: 10px; /* Add margin at bottom */
+}
+
+.close-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: var(--button-color, #007BFF);
+    color: white;
+    border: none;
+    cursor: pointer;
+    align-self: center; /* Center align button horizontally */
+    width: 80%; /* Adjust width for mobile */
+}
+
+.textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    color: inherit;
+    resize: vertical;
+}
+
+button {
+    background-color: var(--button-color, #007BFF);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#videosDisplay {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    background-color: var(--secondary-color, #FFFFFF);
+}
+
+.videoThumbnail {
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 5px;
+    width: 150px; /* Smaller thumbnail size */
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--tertiary-color, #FFFFFF);
+}
+
+.hidden {
+    display: none;
+}
+
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+#videoDescriptionDisplay {
+    margin-top: 10px;
+    word-wrap: break-word;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+.required {
+    color: red;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header div {
+        align-items: center;
+        text-align: center;
+        margin-left: 0;
+    }
+
+    header button {
+        width: 80%;
+        max-width: 300px;
+        margin: 10px 0;
+    }
+
+    #videosDisplay {
+        padding: 20px;
+    }
+
+    .videoThumbnail {
+        width: calc(50% - 20px); /* Two columns with spacing */
+    }
+
+    /* Mobile view for the video player modal */
+    #videoPlayerContainer {
+        flex-direction: column; /* Vertical alignment for small screens */
+        width: 80%;
+        height: 80%;
+        overflow-y: auto; /* Allow scrolling */
+    }
+
+    #videoPlayerWrapper {
+        flex: none;
+        width: 100%;
+        height: auto;
+    }
+
+    #videoPlayer {
+        max-height: 100%;
+    }
+
+    #videoDetailsWrapper {
+        flex: none;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 20px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+
+    .close-button {
+        width: auto;
+        align-self: center; /* Center the button for small screens */
+    }
+    
+}
+

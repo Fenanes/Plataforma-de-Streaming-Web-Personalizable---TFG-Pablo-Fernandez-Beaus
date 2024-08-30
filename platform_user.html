@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Streaming Personalizada</title>
+    <link rel="stylesheet" href="platform.css">
+    <script src="shaka-player.compiled.js"></script>
+</head>
+<body>
+    <header>
+        <img id="logoImage" src="logo/logo.png" alt="Logo de la empresa">
+        <div>
+            <p style="font-size: 40px;" id="titleContainer"></p>
+            <p style="font-size: 20px;" id="subtitleContainer"></p>
+        </div>
+    </header>
+    
+    <div id="videosDisplay">
+        <p id="noVideosMessage">¡Vaya!, parece que aún no hay videos subidos...</p>
+    </div>
+    
+    <div id="videoPlayerModal" class="hidden">
+        <div id="videoPlayerContainer">
+            <div id="videoPlayerWrapper">
+                <video id="videoPlayer" controls></video>
+            </div>
+            <div id="videoDetailsWrapper">
+                <h1 id="videoTitleDisplay" class="title"></h1>
+                <p id="videoDescriptionDisplay" class="description"></p>
+                <button onclick="closeVideoPlayer()" class="close-button">Volver</button>
+            </div>
+        </div>
+    </div>
+    <script src="platform_user.js"></script>
+</body>
+</html>

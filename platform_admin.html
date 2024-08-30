@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Streaming Personalizada (Admin)</title>
+    <link rel="stylesheet" href="platform.css">
+    <script src="shaka-player.compiled.js"></script> <!-- Incluye Shaka Player para reproducción de videos -->
+</head>
+<body>
+    <header>
+        <img id="logoImage" src="logo/logo.png" alt="Logo de la empresa"> <!-- Logo de la plataforma -->
+        <div>
+            <p style="font-size: 40px;" id="titleContainer"></p> <!-- Contenedor para el título de la plataforma -->
+            <p style="font-size: 20px;" id="subtitleContainer"></p> <!-- Contenedor para el subtítulo de la plataforma -->
+        </div>
+        <!-- Botones de administración -->
+        <button onclick="openModal()" id="uploadButton" class="upload-button">Subir vídeo</button>
+        <button onclick="openCustomizationModal()" id="customizeButton" class="customize-button">Editar Personalización</button>
+        <button onclick="openDeleteVideosConfirmationModal()" id="deleteVideosButton" class="delete-button">Eliminar todos los videos</button>
+    </header>
+    
+    <!-- Modal para subir videos -->
+    <div id="modal" class="hidden">
+        <div id="uploadForm">
+            <h2>Subir Vídeo</h2>
+            <p>Subir archivo de vídeo <span class="required">*</span></p>
+            <input type="file" name="video" id="videoUploader" accept="video/*" multiple> <!-- Input para seleccionar videos -->
+            <p>Subir miniatura <span class="required">*</span></p>
+            <input type="file" name="thumbnail" id="thumbnailUploader" accept="image/*" multiple> <!-- Input para seleccionar miniaturas -->
+            <div>
+                <span class="required" style="position: absolute; right: 20px; margin: 10px;">*</span>
+                <input type="text" id="videoTitle" placeholder="Título del vídeo" class="textarea"> <!-- Campo para el título del video -->
+            </div>
+            <textarea id="videoDescription" placeholder="Descripción del vídeo" maxlength="500" class="textarea"></textarea> <!-- Campo para la descripción del video -->
+            <p id="errorMessage" class="error hidden">Por favor, complete todos los campos obligatorios.</p> <!-- Mensaje de error -->
+            <button onclick="addVideos()">Agregar Vídeo</button> <!-- Botón para agregar el video -->
+            <button onclick="closeModalCancel()">Cancelar</button> <!-- Botón para cancelar la carga -->
+        </div>
+    </div>
+    
+    <!-- Modal para personalizar la plataforma -->
+    <div id="customizationModal" class="hidden">
+        <div id="customizationForm">
+            <h2>Personalizar Plataforma</h2>
+            <p>Introduzca un logo en formato png:</p>
+            <input type="file" id="logoUploader" accept="image/png" onchange="previewLogo(event)"> <!-- Input para seleccionar el logo -->
+            <img id="logoPreview" src="" alt="Vista previa del logo" style="max-width: 100px; display: none;"> <!-- Vista previa del logo -->
+            
+            <!-- Selectores de colores -->
+            <p>Seleccione un color primario:</p>
+            <input type="color" id="primaryColor">
+            
+            <p>Seleccione un color secundario:</p>
+            <input type="color" id="secondaryColor">
+
+            <p>Seleccione un color terciario:</p>
+            <input type="color" id="tertiaryColor">
+
+            <!-- Campos para el título y subtítulo -->
+            <p>Escriba un título:</p>
+            <input type="text" id="title" maxlength="20">
+
+            <p>Escriba un subtítulo:</p>
+            <input type="text" id="subtitle" maxlength="40">
+            
+            <!-- Selector de fuentes -->
+            <p>Seleccione una fuente para la web:</p>
+            <select id="fontSelector">
+                <!-- Opciones de fuentes -->
+                <option value="Arial" style="font-family: Arial;">Arial</option>
+                <option value="Verdana" style="font-family: Verdana;">Verdana</option>
+                <option value="Helvetica" style="font-family: Helvetica;">Helvetica</option>
+                <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman</option>
+                <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                <option value="Georgia" style="font-family: Georgia;">Georgia</option>
+                <option value="Palatino Linotype" style="font-family: 'Palatino Linotype';">Palatino Linotype</option>
+                <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
+                <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
+                <option value="Impact" style="font-family: Impact;">Impact</option>
+                <option value="Lucida Sans Unicode" style="font-family: 'Lucida Sans Unicode';">Lucida Sans Unicode</option>
+                <option value="Geneva" style="font-family: Geneva;">Geneva</option>
+                <option value="MS Sans Serif" style="font-family: 'MS Sans Serif';">MS Sans Serif</option>
+                <option value="MS Serif" style="font-family: 'MS Serif';">MS Serif</option>
+                <option value="Book Antiqua" style="font-family: 'Book Antiqua';">Book Antiqua</option>
+                <option value="Palatino" style="font-family: Palatino;">Palatino</option>
+                <option value="Century Gothic" style="font-family: 'Century Gothic';">Century Gothic</option>
+                <option value="Arial Black" style="font-family: 'Arial Black';">Arial Black</option>
+                <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS</option>
+                <option value="Candara" style="font-family: Candara;">Candara</option>
+                <option value="Garamond" style="font-family: Garamond;">Garamond</option>
+            </select>
+
+            <!-- Checkbox para activar letra en cursiva -->
+            <p>Activar letra en cursiva:</p>
+            <label>
+                <input type="checkbox" id="italicCheckbox">
+            </label>
+
+            <!-- Selector de color para los botones -->
+            <p>Seleccione el color de los botones:</p>
+            <input type="color" id="buttonColor">
+
+            <!-- Selector de color para la fuente -->
+            <p>Seleccione el color de la fuente:</p>
+            <input type="color" id="fontColor">
+
+            <!-- Selector de calidad máxima de codificación -->
+            <p>Seleccione la calidad máxima de codificación:</p>
+            <select id="qualitySelector">
+                <option value="720p">720p</option>
+                <option value="1080p">1080p</option>
+                <option value="2160p">2160p</option>
+            </select>
+
+            <button onclick="saveCustomization()">Guardar</button> <!-- Botón para guardar la personalización -->
+            <button onclick="closeCustomizationModal()">Cancelar</button> <!-- Botón para cancelar la personalización -->
+        </div>
+    </div>
+    
+    <!-- Contenedor de videos -->
+    <div id="videosDisplay">
+        <p id="noVideosMessage">¡Vaya!, parece que aún no hay videos subidos...</p>
+    </div>
+    
+    <!-- Modal del reproductor de video -->
+    <div id="videoPlayerModal" class="hidden">
+        <div id="videoPlayerContainer">
+            <div id="videoPlayerWrapper">
+                <video id="videoPlayer" controls></video> <!-- Reproductor de video -->
+            </div>
+            <div id="videoDetailsWrapper">
+                <h1 id="videoTitleDisplay" class="title"></h1> <!-- Título del video -->
+                <p id="videoDescriptionDisplay" class="description"></p> <!-- Descripción del video -->
+                <button id="deleteButton" onclick="deleteVideo()" class="close-button">Eliminar</button> <!-- Botón para eliminar el video -->
+                <button onclick="closeVideoPlayer()" class="close-button">Volver</button> <!-- Botón para cerrar el reproductor -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de confirmación para eliminar un video -->
+    <div id="deleteConfirmationModal" class="hidden">
+        <div id="deleteConfirmationForm">
+            <p>¿Está seguro de querer eliminar este vídeo?</p>
+            <button id="confirmDeleteButton">Sí</button> <!-- Botón de confirmación para eliminar -->
+            <button onclick="closeDeleteConfirmationModal()">No</button> <!-- Botón para cancelar la eliminación -->
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para eliminar todos los videos -->
+    <div id="deleteVideosConfirmationModal" class="hidden">
+        <div id="deleteVideosConfirmationForm">
+            <p>¿Está seguro de querer eliminar todos los videos?</p>
+            <button id="confirmDeleteVideosButton">Sí</button> <!-- Botón de confirmación para eliminar todos los videos -->
+            <button onclick="closeDeleteVideosConfirmationModal()">No</button> <!-- Botón para cancelar la eliminación de todos los videos -->
+        </div>
+    </div>
+    
+    <p id="progressMessage"></p> <!-- Mensaje de progreso -->
+    <script src="platform_admin.js"></script> <!-- Enlace al archivo JavaScript -->
+</body>
+</html>
+
