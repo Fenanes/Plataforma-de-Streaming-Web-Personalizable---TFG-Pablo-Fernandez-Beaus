@@ -1,0 +1,1 @@
+Aquí se subirán los archivos de video y miniaturas en bruto.
