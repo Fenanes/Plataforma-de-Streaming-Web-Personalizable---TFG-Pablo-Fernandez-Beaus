@@ -1,0 +1,1 @@
+Aquí se subirá el logo en formato png
